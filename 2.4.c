@@ -289,7 +289,7 @@ void DateSwap(char* str)
     int n;
 
     n = strlen(str);
-    for (int i=0; i<4; i++){
+    for (int i = 0; i<4; i++){
         temp = str[i];
         str[i] = str[n-(4-i)];
         str[n-(4-i)] = temp;
