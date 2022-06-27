@@ -272,11 +272,11 @@ void RemoveChar(char* s, char c)
 {
     int i, j;
     int len = strlen(s);
-    for(i=0; i<len; i++)
+    for(i = 0; i < len; i++)
     {
         if(s[i] == c)
         {
-            for(j=i; j<len; j++){s[j] = s[j+1];}
+            for(j = i; j < len; j++){s[j] = s[j + 1];}
             len--;
             i--;
         }
@@ -317,13 +317,13 @@ struct Node* Node_Creaction(int date, float temp)
 
 int Height(struct Node* node)
 {
-    if(node==NULL){return 0;}
+    if(node == NULL){return 0;}
     return node->height;
 }
 
 int Balancing(struct Node* node)
 {
-    if(node==NULL){return 0;}
+    if(node == NULL){return 0;}
     return (Height(node->left) - Height(node->right));
 }
 
@@ -350,7 +350,6 @@ struct Node *Right_Rotation(struct Node *node)
 
     node->height = Height(node);
     x->height = Height(x);
- 
     return x;
 }
 
@@ -364,7 +363,6 @@ struct Node *Left_Rotation(struct Node *node)
 
     node->height = Height(node);
     y->height = Height(y);
-
     return y;
 }
 
@@ -376,10 +374,10 @@ struct Node* Insertion_Date(struct Node* node, int date, float temp)
     else{return node;}
 
     node->height = Height(node);
-    int balance= Balancing(node);
+    int balance = Balancing(node);
 
     if (balance > 1 && date < node->left->date){return Right_Rotation(node);}
-    if (balance <-1  && date > node->right->date){return Left_Rotation(node);}
+    if (balance < -1  && date > node->right->date){return Left_Rotation(node);}
     if (balance > 1 && date > node->left->date)
     {
         node->left = Left_Rotation(node->left);
@@ -444,10 +442,10 @@ float Search_AVL(struct Node* node,int date)
     struct Node* search = node;
     while(search->date != date)
     {
-        if(search!=NULL){
-            if(date>search->date){search=search->right;}
-            else{search=search->left;}
-            if(search==NULL){return -1;}
+        if(search != NULL){
+            if(date > search->date){search = search->right;}
+            else{search = search->left;}
+            if(search == NULL){return -1;}
         }
     }
     return search->temp;
