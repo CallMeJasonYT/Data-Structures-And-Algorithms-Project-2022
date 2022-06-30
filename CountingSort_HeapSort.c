@@ -27,7 +27,8 @@ void SwapInt(int *a, int *b); //A function used to swap two Interger variables
 void Heapify(OCEAN* arr, int n, int i); //Heapify Function
 void HeapSort(OCEAN* arr, int n); //HeapSort Algorithm
 
-int main(){
+int main()
+{
     FILE *fp;
     fp = fopen("ocean.csv","r+");
     if (fp == NULL) {exit(1);} //If the file is empty exit the program

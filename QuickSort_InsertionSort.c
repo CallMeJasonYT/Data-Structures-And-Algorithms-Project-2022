@@ -16,7 +16,8 @@ void PrintArray(OCEAN* array, int size); //A function used to print the Struct
 void InsertionSort(OCEAN* arr, int n); //InsertionSort Function
 void Quicksort(OCEAN* arr, int first, int last); //QuickSort Function
 
-int main(){
+int main()
+{
     FILE *fp;
     fp = fopen("ocean.csv","r+");
     if (fp == NULL) {exit(1);} //If the file is empty exit the program
