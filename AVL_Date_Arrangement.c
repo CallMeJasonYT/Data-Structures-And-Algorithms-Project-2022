@@ -220,8 +220,8 @@ struct Node* Insertion(struct Node* node, int date, float temp)
     
     //If this node becomes unbalanced, then there are 4 cases:
     if (balance > 1 && date < node->left->date){return Right_Rotation(node);} //Left Left Case
-    if (balance <-1  && date > node->right->date){return Left_Rotation(node);} //Left Right Case
-    if (balance > 1 && date > node->left->date) //Right Right Case
+    if (balance <-1  && date > node->right->date){return Left_Rotation(node);} //Right Right Case
+    if (balance > 1 && date > node->left->date) //Left Right Case
     {
         node->left = Left_Rotation(node->left);
         return Right_Rotation(node);
