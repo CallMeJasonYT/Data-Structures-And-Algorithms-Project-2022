@@ -46,7 +46,7 @@ int main()
     BubbleSort(OceanArray, rows); //BubbleSort Algorithm
     //PrintArray(OceanArray, rows);
     long int date;
-    printf("Please select a desired date in YYYYMMDD format:\n");
+    printf("Please input the desired date in YYYYMMDD format:\n");
     scanf("%ld",&date);
     clock_t t; //Initializing a variable in order to count the clocks between the completions of the algorithms
     t = clock();
@@ -55,7 +55,7 @@ int main()
     double total = ((double)t)/CLOCKS_PER_SEC;
     printf("\n");
     printf("The temperature of %ld is %.2f \n\n", date, btemp);
-    printf("Time Elapsed: %lf \n\n", (total));
+    printf("After BIS...\nTime Elapsed: %lf \n\n", (total));
 }
 
 float BIS(Ocean* arr, int left, int right, long int date)
