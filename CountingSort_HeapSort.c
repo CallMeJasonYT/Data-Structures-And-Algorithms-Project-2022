@@ -78,7 +78,7 @@ int main()
     printf("\n");
     printf("After Heap Sort...\n\n");
     printf("Time Elapsed: %lf \n\n", (total));
-    PrintArray(OceanArray, count);
+    //PrintArray(OceanArray, count);
     int max = Find_Max(OceanArray2, count);
     clock_t cl;
     cl = clock();
@@ -88,7 +88,7 @@ int main()
     printf("\n");
     printf("After Counting Sort...\n\n");
     printf("Time Elapsed: %lf \n\n", (total));
-    PrintArray2(OceanArray3, count-1);
+    //PrintArray2(OceanArray3, count-1);
 }
 
 int FileCounter (FILE* fp)
