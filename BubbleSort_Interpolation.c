@@ -47,20 +47,20 @@ int main()
     //PrintArray(OceanArray, rows);
     long int date;
     clock_t t; //Initializing a variable in order to count the clocks between the completions of the algorithmss
-    printf("Please select a desired date in YYYYMMDD format:\n");
+    printf("Please input the desired date in YYYYMMDD format:\n");
     scanf("%ld",&date);
     t = clock();
     printf("The temperature of %ld is %.2f \n\n", date, BinarySearch(OceanArray, 0, rows-1, date)); //Printing the Temperature on the Desired date using Binary Search
     t = clock() - t;
     double total = ((double)t) / CLOCKS_PER_SEC;
-    printf("Time Elapsed: %lf \n\n", (total));
-    printf("Please select a desired date in YYYYMMDD format:\n");
+    printf("After BinarySearch...\nTime Elapsed: %lf \n\n", (total));
+    printf("Please input the desired date in YYYYMMDD format:\n");
     scanf("%ld",&date);
     t = clock();
     printf("The temperature of %ld is %.2f \n\n", date, InterpolationSearch(OceanArray, 0, rows-1, date)); //Printing the Temperature on the Desired date using Interpolation Search
     t = clock() - t;
     total = ((double)t) / CLOCKS_PER_SEC;
-    printf("Time Elapsed: %lf \n\n", (total));
+    printf("After Interpolation Search...\nTime Elapsed: %lf \n\n", (total));
 }
 
 void ReadFile(Ocean* OceanArray)
