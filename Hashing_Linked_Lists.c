@@ -21,7 +21,7 @@ void RemoveChar(char* s, char c); //A function used to remove the '/' characters
 int Ascii_Sum(char* s, int len); //A function calculating the Sumary of the Ascii Characters of the date
 void Insertion(struct Node** table, int date , int key, float temp); //The Insertion Function
 
-int m = 15; //Modulo for the Hash Function
+int m = SIZE; //Modulo for the Hash Function
 int HashFunction(int key){return (key % m);} //Hash Function
 
 int main()

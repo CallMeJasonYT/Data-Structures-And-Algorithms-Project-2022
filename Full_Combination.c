@@ -39,7 +39,7 @@ void Min_Temp(struct Node* node);
 int max(int a, int b);
 struct Node* minValueNode(struct Node* node);
 
-int m = 15;
+int m = SIZE;
 int HashFunction(int key){return (key % m);}
 
 int main()
