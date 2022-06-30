@@ -1,9 +1,12 @@
+/*This is a program that reads the .csv file and Inserts the Values into an AVL tree, Date is the key, but it's arranged by the Temperature. 
+After that it uses functions to Find the Max or the Minimum Temperature in the Tree. Everything except the insertion stays the same.*/
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
 
-struct Node{
+struct Node //An AVL Tree Node
+{
     int date;
     float temp;
     int height;
@@ -11,33 +14,34 @@ struct Node{
     struct Node* right;
 };
 
-void RemoveChar(char* s, char c);
-void DateSwap(char* str);
-int Height(struct Node* node);
-int Balancing(struct Node* node);
-struct Node* Node_Creaction(int date, float temp);
-struct Node* Insertion(struct Node* node, int date, float temp);
-struct Node* Left_Rotation(struct Node* node);
-struct Node* Right_Rotation(struct Node* node);
-void Max_Temp(struct Node* node);
-void Min_Temp(struct Node* node);
-struct Node* minValueNode(struct Node* node);
+void RemoveChar(char* s, char c); //A function used to remove the '/' characters from the date
+void DateSwap(char* str); //A function used to swap the date number in order to be able to Sort the dates from the earliest to the latest
+int Height(struct Node* node); //A function used to calculate the height of the AVL tree
+int Balancing(struct Node* node); //A function used to get Balance factor of a Node
+struct Node* Node_Creaction(int date, float temp); //A function used to allocate a new node with the given key and NULL left and right pointers
+struct Node* Insertion(struct Node* node, int date, float temp); //The Insertion Function
+struct Node* Left_Rotation(struct Node* node); //A function used to left rotate subtree rooted with y
+struct Node* Right_Rotation(struct Node* node); //A utility function to right rotate subtree rooted with x
+void Max_Temp(struct Node* node); //A function used to find the max Temperature in the AVL tree
+void Min_Temp(struct Node* node); //A function used to find the Minimum Temperature in the AVL tree
+struct Node* minValueNode(struct Node* node); //A function that returns the node with minimum key value found in that tree
 
 int main()
 {
-    struct Node* root = (struct Node*)malloc(sizeof(struct Node));
+    struct Node* root = (struct Node*)malloc(sizeof(struct Node)); //Dynamically Create an AVL tree
     root = NULL;
     int date, choice, rows = 0;
 
+    //Reading the .csv File and Inserting Data while Creating the AVL Tree with the Insertion Function
     FILE* fp = fopen("ocean.csv", "r");
-    if (!fp){printf("Can't open file\n");}
+    if (!fp){printf("Can't open file\n");} //If the file is empty exit the program
     else
     {
         char buffer[1024];
         rows = 0;
         int column = 0;
-        int r=-1;
-        while (fgets(buffer,1024, fp))
+        int r = -1;
+        while (fgets(buffer, 1024, fp))
         {
             column = 0;
             rows++;
@@ -60,7 +64,7 @@ int main()
                 if (column == 1)
                 {
                     float temp = atof(value);
-                    root = Insertion(root, date, temp);
+                    root = Insertion(root, date, temp); //Calling the Insertion Function in order to Create The AVL tree
                 }
                 value = strtok(NULL, ", ");
                 column++;
@@ -68,36 +72,37 @@ int main()
         }
         fclose(fp);
     }
-    printf("There are %d lines of data in the file.\n\n", rows-1);
+    printf("There are %d lines of data in the file.\n\n", rows-1); //Printing the Rows Number of the File
 
-    while(1){
-    int user_date = 0;
-    printf("Please Select One of the Following Options:\n");
-    printf("1) Minimum Temperature Date\n2) Maximum Temperature Date\n3) Exit\n");
-    scanf("%d",&choice);
-    switch(choice){
-        case 1:
-            Min_Temp(root);
-            break;
-        case 2:
-            Max_Temp(root);
-            break;
-        case 3:
-            exit(0);	
+    while(1)
+    {
+        int user_date = 0;
+        printf("Please Select One of the Following Options:\n");
+        printf("1) Minimum Temperature Date\n2) Maximum Temperature Date\n3) Exit\n");
+        scanf("%d", &choice);
+        switch(choice)
+        {
+            case 1:
+                Min_Temp(root); //Min_Temp Function Call
+                break;
+            case 2:
+                Max_Temp(root); //Max_Temp Function Call
+                break;
+            case 3:
+                exit(0); //Exits the Program
         }
     }
-
 }
 
 void RemoveChar(char* s, char c)
 {
     int i, j;
     int len = strlen(s);
-    for(i=0; i<len; i++)
+    for(i = 0; i < len; i++)
     {
         if(s[i] == c)
         {
-            for(j=i; j<len; j++){s[j] = s[j+1];}
+            for(j = i; j < len; j++){s[j] = s[j + 1];}
             len--;
             i--;
         }
@@ -110,10 +115,10 @@ void DateSwap(char* str)
     int n;
 
     n = strlen(str);
-    for (int i=0; i<4; i++){
+    for (int i = 0; i < 4; i++){
         temp = str[i];
-        str[i] = str[n-(4-i)];
-        str[n-(4-i)] = temp;
+        str[i] = str[n - (4 - i)];
+        str[n - (4 - i)] = temp;
     }
 }
 
@@ -130,13 +135,13 @@ struct Node* Node_Creaction(int date, float temp)
 
 int Height(struct Node* node)
 {
-    if(node==NULL){return 0;}
+    if(node == NULL){return 0;}
     return node->height;
 }
 
 int Balancing(struct Node* node)
 {
-    if(node==NULL){return 0;}
+    if(node == NULL){return 0;}
     return (Height(node->left) - Height(node->right));
 }
 

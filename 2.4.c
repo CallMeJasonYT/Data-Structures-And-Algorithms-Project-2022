@@ -1,10 +1,12 @@
+/*This is a program that combines all the previous three programs into one and gives the user the option to chose which program will be implemented each time.*/
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
 #include <string.h>
 #define SIZE 1405
 
-struct Node{
+struct Node
+{
     int date;
     float temp;
     int height;
@@ -26,7 +28,7 @@ void Insertion_Hash(struct Node** table, int date, int key, float temp);
 struct Node* Left_Rotation(struct Node* node);
 struct Node* Right_Rotation(struct Node* node);
 void InorderTraversal(struct Node* node);
-float Search_AVL(struct Node* node,int date);
+float Search_AVL(struct Node* node, int date);
 float Search_Hash(struct Node** table, int date, int key);
 float Temp_Modification_AVL(struct Node* node, int date);
 float Temp_Modification_Hash(struct Node** table, int date, int key);
@@ -104,7 +106,8 @@ int main()
                                     printf("Please Select One of the Following Options:\n");
                                     printf("1) InOrder Traversal\n2) Searching\n3) Modification\n4) Deletion\n5) Exit\n");
                                     scanf("%d",&choice);
-                                    switch(choice){
+                                    switch(choice)
+                                    {
                                         case 1:
                                             InorderTraversal(root);
                                             printf("\n");
@@ -127,7 +130,7 @@ int main()
                                             break;
                                         case 5:
                                             exit(0);	
-                                        }
+                                    }
                                 }
                                 case 2: ;
                                     struct Node* root = (struct Node*)malloc(sizeof(struct Node));
@@ -289,10 +292,10 @@ void DateSwap(char* str)
     int n;
 
     n = strlen(str);
-    for (int i = 0; i<4; i++){
+    for (int i = 0; i < 4; i++){
         temp = str[i];
-        str[i] = str[n-(4-i)];
-        str[n-(4-i)] = temp;
+        str[i] = str[n - (4 - i)];
+        str[n - (4 - i)] = temp;
     }
 }
 

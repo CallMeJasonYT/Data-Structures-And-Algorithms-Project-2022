@@ -1,3 +1,4 @@
+/*This is a program that reads the .csv file and saves the values into a struct. After that it runs a Bubble Sort Algorithm, a BIS Algorithm*/
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -10,26 +11,26 @@ typedef struct Ocean
     float temp, phos, silic, nitrite, nitrate, sal, oxyg;
 }Ocean;
 
-float LinearSearch(Ocean* arr, int left, int right, long int date);
-float BIS(Ocean* OceanArray, int left, int right, long int date);
-void BubbleSort(Ocean* arr, int size);
-void SwapLi(long int* x, long int* y);
-void Swapf(float* x, float* y);
-void RemoveChar(char* str, char c);
-void DateSwap(char* str);
-void PrintArray(Ocean* array, int size);
-void ReadFile(Ocean* OceanArray);
+float LinearSearch(Ocean* arr, int left, int right, long int date); //Linear Search Algorithm
+float BIS(Ocean* OceanArray, int left, int right, long int date); //Binary Interpolation Search Algorithm
+void BubbleSort(Ocean* arr, int size); //BubbleSort Algorithm
+void SwapLi(long int* x, long int* y); //A function used to swap two long int variables
+void Swapf(float* x, float* y); //A function used to swap two float variables
+void RemoveChar(char* str, char c); //A function used to remove the '/' characters from the date
+void DateSwap(char* str); //A function used to swap the date number in order to be able to Sort the dates from the earliest to the latest
+void PrintArray(Ocean* array, int size); //A function used to Print the Ocean Struct
+void ReadFile(Ocean* OceanArray); //A function used to read the File and Pass the data to the Ocean Struct
 
 int main()
 {
     FILE* fp = fopen("ocean.csv", "r");
     int rows = -1;
-    if (!fp){printf("Can't open file\n");}
+    if (!fp){printf("Can't open file\n");} //If the file is empty exit the program
     else
     {
         char buffer[1024];
-        int r=0;
-        while (fgets(buffer,1024, fp)){
+        int r = 0;
+        while (fgets(buffer, 1024, fp)){
             rows++;
             if (rows == 1){continue;}
             char* value = strtok(buffer, ", ");
@@ -38,18 +39,18 @@ int main()
         }
     }
     fclose(fp);
-    printf("Count is: %d \n", rows);
-    Ocean OceanArray[rows];
-    ReadFile(OceanArray);
+    printf("Count is: %d \n", rows); //Printing the Rows Number of the File
+    Ocean OceanArray[rows]; //Initialization of the Struct OceanArray which is our main struct
+    ReadFile(OceanArray); //Passing the data into the OceanArray
     //PrintArray(OceanArray, rows);
-    BubbleSort(OceanArray, rows);
+    BubbleSort(OceanArray, rows); //BubbleSort Algorithm
     //PrintArray(OceanArray, rows);
     long int date;
     printf("Please select a desired date in YYYYMMDD format:\n");
     scanf("%ld",&date);
-    clock_t t;
+    clock_t t; //Initializing a variable in order to count the clocks between the completions of the algorithms
     t = clock();
-    float btemp = BIS(OceanArray, 0, rows-1, date);
+    float btemp = BIS(OceanArray, 0, rows-1, date); //Printing the Temperature on the Desired date using Binary Search
     t = clock() - t;
     double total = ((double)t)/CLOCKS_PER_SEC;
     printf("\n");
@@ -57,27 +58,28 @@ int main()
     printf("Time Elapsed: %lf \n\n", (total));
 }
 
-float BIS(Ocean* arr, int left, int right, long int date){
-    int size=right-left;
-    int next=(int) size * (date-arr[left].date)/(arr[right].date-arr[left].date) + 1;
+float BIS(Ocean* arr, int left, int right, long int date)
+{
+    int size = right - left;
+    int next = (int) size * (date - arr[left].date) / (arr[right].date - arr[left].date) + 1;
     while(date != arr[next].date)
     {
         int i = 0;
         size = right - left;
-        if(size <= 3){return LinearSearch(arr, left, right, date);}
+        if(size <= 3){return LinearSearch(arr, left, right, date);} //We are using Linear Search when the field of search is small enough
         if(date >= arr[next].date)
         {
-            while(date > arr[next + i * ((int) sqrt(size))-1].date){i++;}
+            while(date > arr[next + i * ((int) sqrt(size)) - 1].date){i++;}
             right = next + (int) (i * sqrt(size));
-            left = next + (int) ((i-1) * sqrt(size));
+            left = next + (int) ((i - 1) * sqrt(size));
         }
         else if(date < arr[next].date)
         {
-            while(date < arr[next - i * ((int)sqrt(size))+1].date){i++;}
-            right = next - (int)((i-1) * sqrt(size));
+            while(date < arr[next - i * ((int)sqrt(size)) + 1].date){i++;}
+            right = next - (int)((i - 1) * sqrt(size));
             left = next - (int)(i * sqrt(size));
         }
-        next = (int) (left + ((right - left + 1) * (date - arr[left].date)/(arr[right].date - arr[left].date))) - 1;
+        next = (int) (left + ((right - left + 1) * (date - arr[left].date) / (arr[right].date - arr[left].date))) - 1;
     }
     if(date == arr[next].date){return arr[next].temp;}
     else{return -1;}
@@ -95,7 +97,6 @@ float LinearSearch(Ocean* arr, int left, int right, long int date)
 	return -1;
 }
 
-
 void ReadFile(Ocean* OceanArray)
 {
     FILE* fp = fopen("ocean.csv", "r");
@@ -105,7 +106,7 @@ void ReadFile(Ocean* OceanArray)
         char buffer[1024];
         int row = 0;
         int column = 0;
-        int r=-1;
+        int r = -1;
         while (fgets(buffer,1024, fp)){
             column = 0;
             row++;
@@ -172,7 +173,7 @@ void BubbleSort(Ocean* arr, int size)
 void PrintArray(Ocean* array, int size)
 {
     int i;
-    for(i=0;i<size;i++)
+    for(i = 0; i < size; i++)
     {
         printf("%ld, %.2f\n", array[i].date, array[i].temp);
     }
@@ -184,11 +185,11 @@ void RemoveChar(char* s, char c)
 {
     int i, j;
     int len = strlen(s);
-    for(i=0; i<len; i++)
+    for(i = 0; i < len; i++)
     {
         if(s[i] == c)
         {
-            for(j=i; j<len; j++){s[j] = s[j+1];}
+            for(j = i; j < len; j++){s[j] = s[j + 1];}
             len--;
             i--;
         }
@@ -201,9 +202,9 @@ void DateSwap(char* str)
     int n;
 
     n = strlen(str);
-    for (int i=0; i<4; i++){
+    for (int i = 0; i < 4; i++){
         temp = str[i];
-        str[i] = str[n-(4-i)];
-        str[n-(4-i)] = temp;
+        str[i] = str[n - (4 - i)];
+        str[n - (4 - i)] = temp;
     }
 }

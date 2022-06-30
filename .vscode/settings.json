@@ -1,6 +1,7 @@
 {
     "terminal.integrated.scrollback": 10000,
     "files.associations": {
-        "complex": "c"
+        "complex": "c",
+        "time.h": "c"
     }
 }
