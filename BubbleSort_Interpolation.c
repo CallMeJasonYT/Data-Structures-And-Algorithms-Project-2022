@@ -57,7 +57,7 @@ int main()
     printf("Please select a desired date in YYYYMMDD format:\n");
     scanf("%ld",&date);
     t = clock();
-    printf("The temperature of %ld is %.2f \n", date, InterpolationSearch(OceanArray, 0, rows-1, date)); //Printing the Temperature on the Desired date using Interpolation Search
+    printf("The temperature of %ld is %.2f \n\n", date, InterpolationSearch(OceanArray, 0, rows-1, date)); //Printing the Temperature on the Desired date using Interpolation Search
     t = clock() - t;
     total = ((double)t) / CLOCKS_PER_SEC;
     printf("Time Elapsed: %lf \n\n", (total));
